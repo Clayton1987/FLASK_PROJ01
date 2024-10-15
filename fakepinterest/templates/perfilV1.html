@@ -1,0 +1,55 @@
+{% extends "homepage.html" %}
+
+{% block titulo %}
+Perfil - {{ usuario }}
+{% endblock %}
+
+{% block body %}
+<body>
+{% include "navbar.html" %}
+
+<h1>##################   Esse é o Perfil: {{ usuario.username }}  ###############</h1>
+<p></p>
+{% if form %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    {{ form.foto() }}
+    {{ form.botao_confirmacao() }}
+</form>
+{% endif %}
+
+
+<p></p>
+<a href="/">HOME</a>
+<p></p>
+<a href="{{ url_for('homepage') }}">HOME</a>
+<p></p>
+<a href="http:\\www.google.com">Sair</a>
+<p></p>
+
+<!--<img src="{{ url_for('static', filename='fotos_posts/default.png') }}">-->
+
+
+{% for foto in usuario.fotos %}
+    <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.imagem)) }}" width="200px">
+{% endfor %}
+
+</body>
+{% endblock %}
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="pt-br">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Perfil</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>##################   Esse é o Perfil: {{ usuario }}  ###############</h1>-->
+<!--<p></p>-->
+<!--<a href="/">HOME</a>-->
+<!--<p></p>-->
+<!--<a href="{{ url_for('homepage') }}">HOME</a>-->
+<!--<p></p>-->
+<!--<a href="http:\\www.google.com">Sair</a>-->
+<!--</body>-->
+<!--</html>-->

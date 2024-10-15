@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+        {% block titulo %}
+        Fake-Pinterest
+        {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+{% block body %}
+    <body>
+
+    <h1>Fake - Pinterest - MEU PRIMEIRO SITE NO AR</h1>
+        {% block formulario %}
+            <form method="POST">
+                {{ form.csrf_token }}
+                    {{ form.email.label }}
+                    {{ form.email() }}
+                    <p></p>
+                    {{ form.senha.label }}
+                    {{ form.senha() }}
+                    <p></p>
+                    {{ form.botao_confirmacao() }}
+
+
+            </form>
+            <a href="{{ url_for('criarconta') }}">Clique Aqui para criar uma conta</a>
+        {% endblock %}
+
+    </body>
+{% endblock %}
+</html>

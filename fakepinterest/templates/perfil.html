@@ -1,0 +1,88 @@
+{% extends "homepage.html" %}
+
+{% block titulo %}
+Perfil - {{ usuario }}
+{% endblock %}
+
+{% block body %}
+<body>
+{% include "navbar.html" %}
+
+<h1>##################   Esse é o Perfil: {{ usuario.username }}  ###############</h1>
+<p></p>
+
+<div class="container">
+{% if form %}
+
+
+
+        <form class="bloco-add-img" method="POST" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+          <h2>{{ usuario.username }} - Enviar foto</h2>
+
+          <div class="bloco-arquivo">
+            <label for="foto" class="botao-arquivo">
+              Escolher arquivo
+                 {{ form.foto(class="input-arquivo",id="foto") }}
+<!--              <input-->
+<!--                class="input-arquivo"-->
+<!--                id="foto"-->
+<!--                name="foto"-->
+<!--                required=""-->
+<!--                type="file"-->
+<!--              />-->
+            </label>
+            <span id="imagem-arquivo" class=""></span>
+          </div>
+
+<!--          <button class="botao-login">Enviar foto</button>-->
+            {{ form.botao_confirmacao(class="botao-login") }}
+        </form>
+
+
+{% else %}
+    <div class="bloco-add-img">
+        <h2>{{ usuario.username }} - Ver Perfil</h2>
+    </div>
+{% endif %}
+    </div>
+
+<p></p>
+<a href="/">HOME</a>
+<p></p>
+<a href="{{ url_for('homepage') }}">HOME</a>
+<p></p>
+<a href="http:\\www.google.com">Sair</a>
+<p></p>
+
+<!--<img src="{{ url_for('static', filename='fotos_posts/default.png') }}">-->
+
+<div class="conteudo">
+{% for foto in usuario.fotos %}
+
+
+        <div class="bloco-imagem">
+          <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.imagem)) }}"/>
+        </div>
+
+
+
+<!--    <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.imagem)) }}" width="200px">-->
+{% endfor %}
+</div>
+
+
+  <script>
+      let input = document.getElementById("foto");
+      let imagemArquivo = document.getElementById("imagem-arquivo");
+
+      input.addEventListener("change", () => {
+        let inputImagem = document.querySelector("input[type=file]").files[0];
+
+        imagemArquivo.classList.add("visivel");
+        imagemArquivo.innerText = inputImagem.name;
+      });
+    </script>
+</body>
+{% endblock %}
+
